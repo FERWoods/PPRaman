@@ -3,6 +3,7 @@
 #' Reads in mutiple raw spectra and interpolates using hyperSpec pkg
 #' @return Interpolated spectra in hyperSpec format
 #' @export
+#' @import hyperSpec
 
 read_interp_spectra <- function(){
   list.files()

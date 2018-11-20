@@ -5,7 +5,6 @@
 #' @return PC loadings and scores in format PC#_score (e.g. pc1_score)
 #' @return the full PCA object in the third list object
 #' @export
-
 PCA <- function(spectra){
 
   #Uses base r to complete PCA

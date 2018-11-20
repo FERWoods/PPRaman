@@ -6,6 +6,7 @@
 #' @param n_reps Number of repeats for each patient
 #' @return Formatted spectra for EMSC
 #' @export
+#' @import EMSC
 
 format_spectra <- function(raw_spec, n_pat, n_reps){
 

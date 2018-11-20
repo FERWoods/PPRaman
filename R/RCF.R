@@ -7,6 +7,7 @@
 #' @param radius RCF radius selection
 #' @return Corrected spectra with RCF applied (background removed)
 #' @export
+#' @import pracma
 
 RCF <- function(raw_spec, samp_num, baseline_fit, radius){
 

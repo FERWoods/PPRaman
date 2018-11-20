@@ -3,9 +3,11 @@
 #' Easy and clear plotting for spectral data for processed and pre-processed spectra
 #' @param raw_spec Spectra in matrix form (like raw spectra)
 #' @param samp_num # of samples
+#' @param wavenumber Wavenumber along x axis, same used for interpolation
 #' @return plot of spectra
 #' @export
-#'
+#' @import ggplot2
+#' @import reshape2
 
 spectral_plots <- function(raw_spec, samp_num, wavenumber){
 

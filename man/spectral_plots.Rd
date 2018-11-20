@@ -10,6 +10,8 @@ spectral_plots(raw_spec, samp_num, wavenumber)
 \item{raw_spec}{Spectra in matrix form (like raw spectra)}
 
 \item{samp_num}{# of samples}
+
+\item{wavenumber}{Wavenumber along x axis, same used for interpolation}
 }
 \value{
 plot of spectra
