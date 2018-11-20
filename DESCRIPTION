@@ -1,0 +1,12 @@
+Package: PPRaman
+Type: Package
+Title: Preprocessing package for Raman spectra
+Version: 0.1.0
+Author: Who wrote it
+Maintainer: The package maintainer <yourself@somewhere.net>
+Description: Provides preprocessing for Raman Spectra. Originally
+  based on Matlab code and converted November 2018.
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
