@@ -25,10 +25,10 @@ spectral_plots <- function(raw_spec, samp_num, wavenumber){
   OBJ_For_Plotting <- melt(OBJ_For_Plotting, id.vars = "Wavenumber")
 
   # Creates basis of plot
-  ptitle <- readline("Title for Spectral Plot?")
+  #ptitle <- readline("Title for Spectral Plot?")
   p <- ggplot(OBJ_For_Plotting) + geom_line(aes(Wavenumber,value, col = variable)) +
     xlab(expression(paste("Wavenumber (", cm^-1, ")" ))) + ylab("Intensity (a.u)")
-    ggtitle(ptitle) + theme(plot.title = element_text(hjust = 0.5))
+    #ggtitle(ptitle) + theme(plot.title = element_text(hjust = 0.5))
 
   return(p)
 }
