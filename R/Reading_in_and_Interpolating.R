@@ -6,15 +6,9 @@
 #' @import hyperSpec
 
 read_interp_spectra <- function(){
-  list.files()
-  filelist = list.files(pattern = ".*.txt")
-
-  #assuming tab separated values with a header
-  datalist = lapply(filelist, function(x)read.table(x, header=T))
-
-  #assuming the same header/columns for all files
-  datafr = do.call("rbind", datalist)
+  #user chooses
   files <- choose.files()
+
   # This reads all the files in using read.table
   inputfiles <- lapply(files, read.table)
 
