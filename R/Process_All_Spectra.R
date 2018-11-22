@@ -3,12 +3,16 @@
 #' Runs all spectra in a file through the preprocessing sequence, outputting
 #' a data frame of processed spectra.
 #'
-#' @return Processed spectra
+#' @return A list, with first element the corrected and normalised
+#' @return spectra, the other element contrains date + ID information
 #' @export
 
 process_all_spec <- function(){
+
   # Read in all spectra -- list all in one file
-  spectra <- read_interp_spectra()
+  spectral_info <- read_interp_spectra()
+  spectra <- spectral_info[[1]]
+  supplementary <- spectral_info[[2]]
 
   # Run RCF on data
   bl_rmv <- RCF(spectra@data$spc, nrow(spectra@data$spc) , "pchip", 150)
@@ -16,6 +20,5 @@ process_all_spec <- function(){
   # Normalise to phenylalanine peak
   norm_spec <- norm_p(t(bl_rmv))
 
-  return(norm_spec)
+  return(list(norm_spec, supplementary))
 }
-

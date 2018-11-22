@@ -12,6 +12,12 @@ read_interp_spectra <- function(){
   # This reads all the files in using read.table
   inputfiles <- lapply(files, read.table)
 
+  # Extracting date and ID from file name
+  files_base <- basename(files)
+  date <- substr(files_base, 1, 6)
+  ID <- substr(files_base, 11, 13)
+  supp_info <- cbind(dates, ID)
+
   #Storing the original wavenumber for creating hyperspec object
   old_wn <- inputfiles[[1]][,1]
 
@@ -36,7 +42,7 @@ read_interp_spectra <- function(){
   #Interpolating the data using loess
   int_spec <- spc.loess(raw_hyperSpec, waveno)
 
-  return(int_spec)
+  return(list(int_spec, supp_info))
 }
 
 
