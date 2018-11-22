@@ -9,17 +9,17 @@
 #' @import ggplot2
 #' @import reshape2
 
-spectral_plots <- function(raw_spec, samp_num, wavenumber){
+spectral_plots <- function(raw_spec, labels){
 
   OBJ_For_Plotting <- t(raw_spec)
+
   #Add the wavenumber to the data
   OBJ_For_Plotting <- cbind(wavenumber, OBJ_For_Plotting)
 
   #change colnames
-  samples <- seq(from = 1, to = samp_num, by = 1)
-  samplesno <- paste("Sample", samples, sep = "" )
+  label <- labels
 
-  colnames(OBJ_For_Plotting) <- c("Wavenumber", samplesno)
+  colnames(OBJ_For_Plotting) <- c("Wavenumber", label)
 
   # use melt function to make plotting easier to include different samples in 1 plot
   OBJ_For_Plotting <- melt(OBJ_For_Plotting, id.vars = "Wavenumber")

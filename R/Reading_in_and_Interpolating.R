@@ -16,7 +16,22 @@ read_interp_spectra <- function(){
   files_base <- basename(files)
   date <- substr(files_base, 1, 6)
   ID <- substr(files_base, 11, 13)
-  supp_info <- cbind(dates, ID)
+  supp_info <- cbind(date, ID)
+
+  # Counts number of repeats for each patient
+  rep_count <- as.data.frame(table(supp_info[,2]))
+
+  # Creates a sequence of 1 - nrepeats for labelling
+  repeats <- list()
+  for (i in 1:nrow(rep_count)){
+    repeats[[i]] <- seq(from = 1, to = rep_count[i,2])
+  }
+
+  Labels <- cbind(supp_info, "rep" = unlist(repeats))
+
+  # Means that we have labels eg patient 066.1 066.2 etc
+  pat_rep <- paste(Labels[,2], Labels[,3], sep = ".")
+  Labels <- cbind(Labels, pat_rep)
 
   #Storing the original wavenumber for creating hyperspec object
   old_wn <- inputfiles[[1]][,1]
@@ -42,7 +57,7 @@ read_interp_spectra <- function(){
   #Interpolating the data using loess
   int_spec <- spc.loess(raw_hyperSpec, waveno)
 
-  return(list(int_spec, supp_info))
+  return(list(int_spec, Labels))
 }
 
 

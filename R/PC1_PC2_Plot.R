@@ -5,12 +5,13 @@
 #' @return Data frame of PC1 and PC2 and their labels for plotting
 #' @export
 
-pc_plots <- function(PCA_output){
+pc_plots <- function(PCA_output, Labels){
   # Extract PC1 and PC2 scores from PCA output
   PC1_PC2_Scores <- cbind(as.data.frame(unlist(PCA_output[[1]][1])),
                           as.data.frame(unlist(PCA_output[[1]][2])))
+
   #Combine with patient label for plotting
-  labels <- as.factor(unlist(lapply( 1:inputs[[1]], rep, each = inputs[[2]])))
+  labels <- Labels
   PC1_PC2_Scores <- cbind(labels, PC1_PC2_Scores)
   colnames(PC1_PC2_Scores) <- c("Patient","PC1", "PC2")
 

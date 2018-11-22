@@ -4,7 +4,7 @@
 \alias{pc_plots}
 \title{PC Plots}
 \usage{
-pc_plots(PCA_output)
+pc_plots(PCA_output, Labels)
 }
 \arguments{
 \item{PCA_output}{Output from using PCA() function}

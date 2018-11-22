@@ -4,7 +4,7 @@
 \alias{spectral_plots}
 \title{Spectral Plotting}
 \usage{
-spectral_plots(raw_spec, samp_num, wavenumber)
+spectral_plots(raw_spec, labels)
 }
 \arguments{
 \item{raw_spec}{Spectra in matrix form (like raw spectra)}
