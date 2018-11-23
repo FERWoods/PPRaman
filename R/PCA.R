@@ -13,7 +13,7 @@ PCA <- function(spectra){
   # Assign new variables for each pc loading and put in list
   loadings <- list()
   for (i in 1:ncol(PC$rotation)){
-    assign(paste0("pc", i, "_loading"), PC$rotation[,i])
+    loadings[[i]] <- assign(paste0("pc", i, "_loading"), PC$rotation[,i])
   }
 
   # Assign new variables for each pc score and put in list
