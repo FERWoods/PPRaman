@@ -2,7 +2,7 @@
 #'
 #'
 #' @param spectra Spectral like data
-#' @returns Normalised spectra using vector normalising
+#' @return Normalised spectra using vector normalising
 #' @export
 #'
 

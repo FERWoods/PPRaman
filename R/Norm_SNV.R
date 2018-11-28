@@ -3,7 +3,7 @@
 #' Normalises spectra using Standard Normal Variate method
 #'
 #' @param spectra Spectral like data
-#' @returns Normalised spectra using SNV method
+#' @return Normalised spectra using SNV method
 #' @export
 #'
 
