@@ -9,6 +9,9 @@ norm_vec(spectra)
 \arguments{
 \item{spectra}{Spectral like data}
 }
+\value{
+Normalised spectra using vector normalising
+}
 \description{
 Normalising Spectra using Vector Normalising
 }

@@ -8,6 +8,8 @@ pc_plots(PCA_output, Labels)
 }
 \arguments{
 \item{PCA_output}{Output from using PCA() function}
+
+\item{Labels}{Provide labels for the spectra e.g c(1,1,1,2,2,2)}
 }
 \value{
 Data frame of PC1 and PC2 and their labels for plotting

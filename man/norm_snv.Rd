@@ -9,6 +9,9 @@ norm_snv(spectra)
 \arguments{
 \item{spectra}{Spectral like data}
 }
+\value{
+Normalised spectra using SNV method
+}
 \description{
 Normalises spectra using Standard Normal Variate method
 }

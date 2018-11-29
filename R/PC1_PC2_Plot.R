@@ -2,6 +2,7 @@
 #'
 #' Loadings and score plots ready to use
 #' @param PCA_output Output from using PCA() function
+#' @param Labels Provide labels for the spectra e.g c(1,1,1,2,2,2)
 #' @return Data frame of PC1 and PC2 and their labels for plotting
 #' @export
 
