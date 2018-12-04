@@ -26,7 +26,8 @@ spectral_plots <- function(raw_spec, labels){
   # Creates basis of plot
   #ptitle <- readline("Title for Spectral Plot?")
   p <- ggplot(OBJ_For_Plotting) + geom_line(aes(Wavenumber,value, col = variable)) +
-    xlab(expression(paste("Wavenumber (", cm^-1, ")" ))) + ylab("Intensity (a.u)")
+    xlab(expression(paste("Wavenumber (", cm^-1, ")" ))) + ylab("Intensity (a.u)") +
+    labs(color = "Sample")
     #ggtitle(ptitle) + theme(plot.title = element_text(hjust = 0.5))
 
   return(p)

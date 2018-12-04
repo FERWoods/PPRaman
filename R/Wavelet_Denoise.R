@@ -2,7 +2,7 @@
 #' Smoothing using the wavelet denoise method
 #'
 #' @param spectra Spectral object requiring denoising
-#' @param filter_len Length of filter to be used with wavelet denoise. must be even eve and max of N=20
+#' @param filter_len Length of filter to be used with wavelet denoise. must be even and max of N=20
 #' @return Denoiseed spectra
 #' @references Adapted from PRFFECT package
 #' @export

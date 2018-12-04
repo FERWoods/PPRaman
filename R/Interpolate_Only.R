@@ -1,18 +1,17 @@
-#' Reading in raw spectra and interpolating
+#' Interpolate Spectra
 #'
-#' Reads in mutiple raw spectra and interpolates using hyperSpec pkg
-#' @return Interpolated spectra in hyperSpec format
+#' Interpolates raw spectral data using Approx function, no smoothing
+#' @return Interpolated spectra using approx function method = "constant"
 #' @export
-#' @import hyperSpec
 
-read_interp_spectra <- function(){
+
+interpolate_spectra <- function(){
   #user chooses
   files <- choose.files()
 
   # This reads all the files in using read.table
   inputfiles <- lapply(files, read.table)
 
-  inputfiles <- flip_data(inputfiles)
   # Extracting date and ID from file name
   files_base <- basename(files)
   date <- substr(files_base, 1, 6)
@@ -35,30 +34,22 @@ read_interp_spectra <- function(){
   Labels <- cbind(Labels, pat_rep)
 
   #Storing the original wavenumber for creating hyperspec object
-  old_wn <- lapply(inputfiles, function(x){ x["V2"] <- NULL; x })
+  old_wn <- inputfiles[[1]][,1]
 
   # remove the w/n column from each spectra
-  rmv_wn <- lapply(inputfiles, function(x){ x["V1"] <- NULL; x })
+  rmv_wn <- lapply(inputfiles, function(x) { x["V1"] <- NULL; x })
+
 
   raw_spec <- t(do.call("cbind", rmv_wn))
 
   #Step sizes for interpolating
   waveno <- seq(611.6, 1717, by = 1.09)
 
-
-  #Converts raw spectra to hyperspec object to work with the package
-  raw_hyperSpec <- as.hyperSpec(raw_spec, wl = waveno)
-  chondro@wavelength
-
-  #Add labels
-
-  raw_hyperSpec@label$.wavelength <- expression(Wavenumber (cm^-1))
-  raw_hyperSpec@label$spc <- expression(Intensity (a.u))
-
-  #Interpolating the data using loess
-  int_spec <- spc.loess(raw_hyperSpec, waveno)
-
-  return(list(int_spec, Labels))
+  output <- matrix(ncol = ncol(raw_spec), nrow = nrow(raw_spec))
+  for (i in 1:nrow(raw_spec)){
+    #interpolate raw spec
+    output[i,] <- approx(old_wn, raw_spec[i,], waveno, method = "constant")$'y'
+   }
+  return(output)
 }
-
 
