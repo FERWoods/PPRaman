@@ -9,10 +9,11 @@ process_all_spec_historic <- function(){
   supplementary <- spectral_info[[2]]
 
   # Run RCF on data
-  bl_rmv <- RCF(spectra, nrow(spectra) , "pchip", 150)
+  bl_rmv <- RCF(spectra@data$spc, nrow(spectra@data$spc) , "pchip", 150)
 
   # Normalise to phenylalanine peak
   norm_spec <- norm_p(t(bl_rmv))
 
   return(list(norm_spec, supplementary))
 }
+
