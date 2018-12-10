@@ -1,6 +1,7 @@
 #' Reading In, Shifting and Interpolating
 #'
 #' Reads in spectra, shifts to 1004 and interpolates on the x axis
+#' Note currently phenyl peak to 2nd order poly rather than 4th due to error
 #'
 #'@returns Interpolated spectra ready for pre-processing
 #'@export
@@ -45,7 +46,7 @@ read_in_shift_interp <- function(){
   raw_spec <- t(do.call("cbind", rmv_wn))
 
   #Step sizes for interpolating
-  waveno <- seq(611.6, 1717, by = 1.09)
+  wavenumber <- seq(611.6, 1717, by = 1.09)
 
   signal_max <- matrix(nrow = 6, ncol = 3)
   for (i in 1:nrow(raw_spec)){
@@ -75,7 +76,8 @@ read_in_shift_interp <- function(){
                    wn_all[i,SP_index[i,3]], wn_all[i,SP_index[i,4]],
                    wn_all[i,SP_index[i,5]]) # same again for the x axis
 
-    SP_fit[[i]] <- polyfit(SP_wn[i,], SP_int[i,], 2) # fits 4th order poly to phen peak
+    SP_fit[[i]] <- polyfit(SP_wn[i,], SP_int[i,], 2) # fits 2nd order poly to phen peak,
+    # 4th order poly causes error with qr.solve -- same problem with claudia, so using 2nd order
 
     x_ref <- seq(from = SP_wn[i,1], to = SP_wn[i,5], by = 0.1)
 
@@ -99,5 +101,6 @@ read_in_shift_interp <- function(){
       interpolated[i,] <- interp1(Shifted_wn[i,], Shifted_int[i,], wavenumber[,1], "linear")
 
     }
+
   return(list(interpolated, Labels))
 }

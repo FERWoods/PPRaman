@@ -8,4 +8,5 @@ read_in_shift_interp()
 }
 \description{
 Reads in spectra, shifts to 1004 and interpolates on the x axis
+Note currently phenyl peak to 2nd order poly rather than 4th due to error
 }
