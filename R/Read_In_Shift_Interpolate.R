@@ -46,7 +46,7 @@ read_in_shift_interp <- function(){
   raw_spec <- t(do.call("cbind", rmv_wn))
 
   #Step sizes for interpolating
-  wavenumber <- seq(611.6, 1717, by = 1.09)
+  wavenumber <- as.data.frame(seq(611.6, 1717, by = 1.09))
 
   signal_max <- matrix(nrow = 6, ncol = 3)
   for (i in 1:nrow(raw_spec)){
