@@ -24,9 +24,21 @@ random_forest_testing <- function(rf_model, rf_model_600, test_set, top600){
   rf_table <- table(observed = test_set[, ncol(test_set)], predicted = rf_pred)
   rf_table_600 <- table(observed = test_set_600[,ncol(test_set_600)], predicted = rf_pred_600)
 
-  # ROC values
+  # ROC curves
   rf_perf<-ROCR::performance(prediction(rf_prob[,2],test_set[, ncol(test_set)]),'tpr','fpr')
   rf_perf_600<-ROCR::performance(prediction(rf_prob_600[,2],test_set_600[,ncol(test_set_600)]),'tpr','fpr')
 
-  return(list(rf_table, rf_table_600, rf_perf, rf_perf_600))
+  # sen_spec
+  rf_sen_spec <- ROCR::performance(prediction(rf_prob[,2],test_set[, ncol(test_set)]),'sens','spec')
+  rf_sen_spec_600 <- ROCR::performance(prediction(rf_prob_600[,2],test_set_600[,ncol(test_set_600)]),'sens','spec')
+
+  # Area under curve
+  rf_auc <- ROCR::performance(prediction(rf_prob[,2],test_set[, ncol(test_set)]),'auc')
+  rf_auc_600 <- ROCR::performance(prediction(rf_prob_600[,2],test_set_600[,ncol(test_set_600)]),"auc")
+
+  # PPV NPV
+  rf_val <- ROCR::performance(prediction(rf_prob[,2],test_set[, ncol(test_set)]),'ppv', 'npv')
+  rf_val_600 <- ROCR::performance(prediction(rf_prob_600[,2],test_set_600[,ncol(test_set_600)]),'ppv', 'npv')
+  return(list(rf_table, rf_table_600, rf_perf, rf_perf_600, rf_auc, rf_auc_600, rf_sen_spec, rf_sen_spec_600,
+              rf_val, rf_val_600))
 }
