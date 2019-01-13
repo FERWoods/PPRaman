@@ -16,8 +16,8 @@ read_in <- function(){
 opt_process_hpc <- function(spectra, norm_meth, RCF_rad){
 
   # Run RCF on data
-  bl_rmv <- t(do.call(cbind, apply(raw_spec, 1, RCF_dev, 6,
-                                   "pchip", 150)))
+  bl_rmv <- do.call(cbind, apply(raw_spec, 1, RCF_dev, 6,
+                                   "pchip", 150))
 
 
   # Normalise selection

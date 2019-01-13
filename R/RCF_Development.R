@@ -2,7 +2,6 @@
 #'
 #' Background removal for spectral data using RCF
 #' @param raw_spec Spectra data that has been interpolated already
-#' @param samp_num Number of samples within data - user input
 #' @param baseline_fit Choice of baseline fit from Pchip or Linear
 #' @param radius RCF radius selection
 #' @return Corrected spectra with RCF applied (background removed)
