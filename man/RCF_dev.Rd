@@ -12,8 +12,6 @@ RCF_dev(raw_spec, baseline_fit, radius)
 \item{baseline_fit}{Choice of baseline fit from Pchip or Linear}
 
 \item{radius}{RCF radius selection}
-
-\item{samp_num}{Number of samples within data - user input}
 }
 \value{
 Corrected spectra with RCF applied (background removed)

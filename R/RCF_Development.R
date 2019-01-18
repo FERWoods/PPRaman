@@ -2,7 +2,6 @@
 #'
 #' Background removal for spectral data using RCF
 #' @param raw_spec Spectra data that has been interpolated already
-#' @param samp_num Number of samples within data - user input
 #' @param baseline_fit Choice of baseline fit from Pchip or Linear
 #' @param radius RCF radius selection
 #' @return Corrected spectra with RCF applied (background removed)
@@ -13,7 +12,7 @@
 RCF_dev <- function(raw_spec, baseline_fit, radius){
 
   raw_spectra <- raw_spec
-  rad <- radius
+  rad <- as.numeric(radius)
 
   # Creating our semicircle for RCF Interval is automatically set to 1
   x <- seq(-rad, rad)
@@ -93,7 +92,7 @@ RCF_dev <- function(raw_spec, baseline_fit, radius){
 
 
   corrected[corrected<0] <- 0
-  return(corrected)
+  return(t(corrected))
 
 }
 

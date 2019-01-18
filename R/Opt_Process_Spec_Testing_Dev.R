@@ -1,23 +1,17 @@
-#' Options V1 Norm & RF Radius
+#' Options V1 Norm & RF Radius efficiency testing
 
 #' First run of options for the HPC -- testing phase
+#' @param spectra Spectra data that has been interpolated already
+#' @param norm_meth Choice of normalisation
+#' @param RCF_rad RCF radius selection
+#' @return Preprocessed spectra
 #' @export
 #'
 
-# Read in all spectra -- list all in one file
-read_in <- function(){
-  spectral_info <- read_s
-  spectra <- spectral_info[[1]]
-  supplementary <- spectral_info[[2]]
-
-  return(list(spectra, supplementary))
-}
-
-opt_process_hpc <- function(spectra, norm_meth, RCF_rad){
+opt_process_hpc_eff <- function(spectra, norm_meth, RCF_rad){
 
   # Run RCF on data
-  bl_rmv <- t(do.call(cbind, apply(raw_spec, 1, RCF_dev, 6,
-                                   "pchip", 150)))
+  bl_rmv <- t(apply(spectra, 1, RCF_dev, "pchip", as.numeric(RCF_rad)))
 
 
   # Normalise selection
@@ -35,6 +29,3 @@ opt_process_hpc <- function(spectra, norm_meth, RCF_rad){
 
   return(norm_spec)
 }
-
-
-
