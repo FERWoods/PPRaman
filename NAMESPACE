@@ -15,10 +15,7 @@ export(norm_snv)
 export(norm_vec)
 export(opt_process_hpc)
 export(opt_process_hpc_dev)
-<<<<<<< HEAD
-=======
 export(opt_process_hpc_eff)
->>>>>>> 62de6f6a99508a621d47cfeb07d31dddfee56686
 export(pc_plots)
 export(poly_baseline_removal)
 export(process_all_spec)
