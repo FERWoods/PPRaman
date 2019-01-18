@@ -4,7 +4,7 @@
 \alias{opt_process_hpc_dev}
 \title{Options for pre-processing spectra - developing version}
 \usage{
-opt_process_hpc_dev(spectra, norm_meth, rm_bl, samp_num, baseline_fit,
+opt_process_hpc_dev(spectra, norm_meth, rm_bl, baseline_fit, RCF_rad,
   poly_order)
 }
 \arguments{

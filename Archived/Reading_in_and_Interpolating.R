@@ -1,4 +1,4 @@
-#' Reading in raw spectra and interpolating
+#' Reading in raw spectra and interpolating - ARCHIVED
 #'
 #' Reads in mutiple raw spectra and interpolates using hyperSpec pkg
 #' @return Interpolated spectra in hyperSpec format
