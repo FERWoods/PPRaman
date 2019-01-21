@@ -12,7 +12,7 @@
   if(rm_bl == "rcf"){
       bl_rmv <- apply(spectra, 1, RCF_dev, baseline_fit, as.numeric(RCF_rad))
   } else if(rm_bl == "der"){
-      bl_rmv <- SavGol(spectra, poly_order = poly_order)
+      bl_rmv <- SavGol(as.matrix(spectra), poly_order = poly_order)
   } else if(rm_bl == "rub"){
       temp <- spc.rubberband(spectra)
       bl_rmv <- spectra - temp
