@@ -36,7 +36,7 @@
   } else if(norm_meth == "norm_vec"){
     norm_spec <- norm_vec(t(bl_rmv))
   } else if(norm_meth == "norm_a"){
-    norm_spec <- norm_a(bl_rmv)
+    norm_spec <- norm_a(t(bl_rmv))
   } else if(norm_meth == "none"){
     norm_spec <- t(bl_rmv)
   }
