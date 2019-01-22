@@ -2,7 +2,10 @@
 #'
 #' @param spectra Spectra data that has been interpolated already
 #' @param norm_meth Choice of normalisation
+#' @param rm_bl Choice of background removal
+#' @param baseline_fit Baseline fit for RCF - currently off
 #' @param RCF_rad RCF radius selection
+#' @param poly_order Choice of polynomial order for SavGol etc
 #' @return Preprocessed spectra
 #' @export
 

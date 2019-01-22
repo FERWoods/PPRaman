@@ -12,7 +12,13 @@ opt_process_hpc_dev(spectra, norm_meth, rm_bl, baseline_fit, RCF_rad,
 
 \item{norm_meth}{Choice of normalisation}
 
+\item{rm_bl}{Choice of background removal}
+
+\item{baseline_fit}{Baseline fit for RCF - currently off}
+
 \item{RCF_rad}{RCF radius selection}
+
+\item{poly_order}{Choice of polynomial order for SavGol etc}
 }
 \value{
 Preprocessed spectra
