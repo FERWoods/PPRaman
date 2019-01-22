@@ -8,4 +8,3 @@ This is essentially the development file for the package. To use and download as
 5. The repository PP_Scripts contains pre-written scripts for processing spectra -- A quick start that mimicks the matlab code is "PreProcessing_Plots_PCA_Seq.R", however this relies heavily on the file name, so adhoc runs wont work. There will be a script for adhoc tasks in PP_Scripts soon.
 6. Alternatively, to run preprocessing without generating plots/labels (e.g for building model) using the function process_all_spec(), without arguments - the result is a list with the first element containing corrected spectra, and the second contains patient and date info.
 
-If developing the package itself, branch from the master -- this branch can be changed to the master in the future if necessary.
