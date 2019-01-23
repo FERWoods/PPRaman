@@ -38,9 +38,9 @@
   } else if(norm_meth == "norm_a"){
     norm_spec <- norm_a(t(bl_rmv))
   } else if(norm_meth == "none"){
-    norm_spec <- bl_rmv
+    norm_spec <- t(bl_rmv)
   }
 
-  return(norm_spec)
+  return(as.data.frame(norm_spec))
 }
 
