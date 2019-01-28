@@ -23,13 +23,16 @@ read_in_shift_interp_manyspec <- function(){
   inx <- regexpr("ID=", files_base) # searching for pattern "ID="
   ID <- substr(files_base, inx +(3), inx +(3+4) ) # 3 to take into account the "ID=", +5 for ID
 
-  # Counts number of repeats for each patient
-  rep_count <- as.data.frame(table(ID))
+  # Counts number of repeats for each patient -- this bit of code seems unnecessary but due to
+  # functionality of table() (sorts the list) need to do it to maintain order
+  unique_r <- unique(ID)
+  table_r = rbind(label=unique_r, count=sapply(unique_r,function(x)sum(ID==x)))
+  counts <- as.data.frame.matrix(table_r)
 
   # Creates a sequence of 1 - nrepeats for labelling
   repeats <- list()
-  for (i in 1:nrow(rep_count)){
-    repeats[[i]] <- seq(from = 1, to = rep_count[i,2])
+  for (i in 1:ncol(counts)){
+    repeats[[i]] <- seq(from = 1, to = as.numeric(as.character(counts[2,i])))
   }
 
   Labels <- cbind(ID, "rep" = unlist(repeats))

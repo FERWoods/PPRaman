@@ -4,10 +4,12 @@
 \alias{random_forest_training}
 \title{Random Forest Training}
 \usage{
-random_forest_training(training_setin)
+random_forest_training(training_setin, rmv_out)
 }
 \arguments{
 \item{training_setin}{This is your training data, with the last column (V1016) to}
+
+\item{rmv_out}{Choice to remove outliers > 5SD from data points (and if more than 5 points at >5SDs)}
 
 \item{training_setin}{contain 1 or 0 for cancer/control respectively}
 }
