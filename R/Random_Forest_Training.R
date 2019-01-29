@@ -71,7 +71,8 @@ random_forest_training <- function(training_setin, rmv_out){
 
     # Retraining using top 600 features
     rf_model_600 <- randomForest(V1016 ~.,data = new_train_600,importance=TRUE) #train
-    return(list(rf_model, rf_model_600, top600, row_out_ind, training_setin))
+    return(list(rf_model, rf_model_600, top600, "Deliberately empty slot", training_setin))
 
   }
 }
+
