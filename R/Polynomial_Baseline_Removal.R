@@ -16,6 +16,6 @@ poly_baseline_removal <- function(spectra, poly.order){
   # Remove fitted baseline
   spec_corrected <- spectra - baseline
 
-  return(spec_corrected)
+  return(t(spec_corrected$spc))
 
 }
