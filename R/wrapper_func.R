@@ -9,13 +9,15 @@
 #' @return Preprocessed spectra
 #' @export
 
-  opt_process_hpc_dev <- function(spectra, norm_meth, rm_bl, baseline_fit, RCF_rad, poly_order){
+  opt_process_hpc_dev <- function(spectra, norm_meth, rm_bl, baseline_fit, RCF_rad, poly_order,
+                                  filter_length, deriv_order){
 
   # Baseline removal selection
   if(rm_bl == "rcf"){
       bl_rmv <- apply(spectra, 1, RCF_dev, baseline_fit, as.numeric(RCF_rad))
   } else if(rm_bl == "der"){
-      bl_rmv <- SavGol(as.matrix(spectra), poly_order = poly_order)
+      bl_rmv <- t(apply(spectra, 1, savgol, fl = as.numeric(filter_length),
+                      forder = as.numeric(poly_order), dorder = as.numeric(deriv_order)))
   } else if(rm_bl == "rub"){
       temp <- spc.rubberband(spectra)
       bl_rmv <- spectra - temp
