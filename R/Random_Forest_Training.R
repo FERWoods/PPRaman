@@ -28,6 +28,7 @@ random_forest_training <- function(training_setin, rmv_out){
     outliers2 <- which(outliers == TRUE, arr.ind = TRUE)
     tally <- as.data.frame(table(outliers2[,1]))
 
+    # Only removes those that have >=5 wavenumbers outside the SD
     row_out_ind <- subset(tally, tally$Freq >= 5)
     index <- as.numeric(as.character(row_out_ind$Var1))
 

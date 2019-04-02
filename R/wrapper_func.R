@@ -16,8 +16,11 @@
   if(rm_bl == "rcf"){
       bl_rmv <- apply(spectra, 1, RCF_dev, baseline_fit, as.numeric(RCF_rad))
   } else if(rm_bl == "der"){
-      bl_rmv <- t(apply(spectra, 1, savgol, fl = as.numeric(filter_length),
-                      forder = as.numeric(poly_order), dorder = as.numeric(deriv_order)))
+      bl_rmv <- apply(spectra, 1, savgol, fl = as.numeric(filter_length),
+                      forder = as.numeric(poly_order), dorder = as.numeric(deriv_order))
+      # Step required since we lose some wavenumbers due to filter lenght
+      bl_rmv[1:(filter_length + 1)/2, ] <- 0
+      bl_rmv[(ncol(spectra) - (filter_length + 1)/2):ncol(spectra), ] <- 0
   } else if(rm_bl == "rub"){
       temp <- spc.rubberband(spectra)
       bl_rmv <- spectra - temp

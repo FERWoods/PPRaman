@@ -5,7 +5,7 @@
 \title{Options for pre-processing spectra - developing version}
 \usage{
 opt_process_hpc_dev(spectra, norm_meth, rm_bl, baseline_fit, RCF_rad,
-  poly_order)
+  poly_order, filter_length, deriv_order)
 }
 \arguments{
 \item{spectra}{Spectra data that has been interpolated already}

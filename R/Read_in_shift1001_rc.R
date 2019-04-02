@@ -1,0 +1,112 @@
+#' Read In, Shift, Interp - Shifs to 1001 Post Neon Calibration RC applied
+#'
+#' For use with data post the neon calibration in March 2019
+#' @return Interpolated and Shifted Spectra to 1001
+#' @export
+
+read_in_dev_axis <- function(rc, sys){
+  #user chooses
+  files <- choose.files()
+
+  # This reads all the files in using read.table
+  inputfiles <- lapply(files, read.table)
+
+  # Extracting date and ID from file name
+  files_base <- basename(files)
+  date <- substr(files_base, 1, 6)
+  ID <- substr(files_base, 11, 13)
+  supp_info <- cbind(date, ID)
+
+  # Counts number of repeats for each patient
+  rep_count <- as.data.frame(table(supp_info[,2]))
+
+  # Creates a sequence of 1 - nrepeats for labelling
+  repeats <- list()
+  for (i in 1:nrow(rep_count)){
+    repeats[[i]] <- seq(from = 1, to = rep_count[i,2])
+  }
+
+  Labels <- cbind(supp_info, "rep" = unlist(repeats))
+
+  # Means that we have labels eg patient 066.1 066.2 etc
+  pat_rep <- paste(Labels[,2], Labels[,3], sep = ".")
+  Labels <- cbind(Labels, pat_rep)
+
+
+  inputfiles <- flip_data(inputfiles)
+  #Storing the original wavenumber for creating hyperspec object
+  old_wn <- lapply(inputfiles, function(x){ x["V2"] <- NULL; x })
+
+  wn_all <- t(do.call("cbind", old_wn))
+  # remove the w/n column from each spectra
+  rmv_wn <- lapply(inputfiles, function(x){ x["V1"] <- NULL; x })
+
+  raw_spec1 <- t(do.call("cbind", rmv_wn))
+
+  if((rc == "1" & sys == "Q")){
+    raw_spec <- sweep(raw_spec1, 2, rc_qontor, "*")
+  } else if(rc == "1" & sys == "R"){
+    raw_spec <- sweep(raw_spec1, 2, rc_reflex, "*")
+  } else{
+    raw_spec <- raw_spec1
+  }
+
+  #Step sizes for interpolating
+  wavenumber <- as.data.frame(seq(611.6, 1717, by = 1.09))
+
+  signal_max <- matrix(nrow = 6, ncol = 3)
+  for (i in 1:nrow(raw_spec)){
+    max_i <- which.max(raw_spec[i,300:380]) # taking 1015-300 and 1015-380 due to flipping
+    shift_i <- max_i + 299
+    signal_max[i,] <- c(shift_i, wn_all[i, shift_i], raw_spec[i, shift_i])
+  }
+
+  SP_index <- matrix(nrow = nrow(raw_spec), ncol = 5 ) # using 5 reference points for peak fit
+  SP_int <- matrix(nrow = nrow(raw_spec), ncol = 5) # for finding intensity at SP_index
+  SP_wn <- matrix(nrow = nrow(raw_spec), ncol = 5) # for wavenumber around the peak
+  SP_fit <- list()
+  SP_fit_val <- list()
+
+  Shifted_wn <- matrix(nrow = nrow(raw_spec), ncol = ncol(raw_spec))
+  Shifted_int <- matrix(nrow = nrow(raw_spec), ncol = ncol(raw_spec))
+
+  ref_peak <- 1001
+  for (i in 1:nrow(raw_spec)){
+    SP_index[i,] <- c(signal_max[i,1]-2, signal_max[i,1] -1, signal_max[i,1],
+                      signal_max[i,1] + 1, signal_max[i,1] + 2)
+    SP_int[i,] <- c(raw_spec[i,SP_index[i,1]], raw_spec[i,SP_index[i,2]],
+                    raw_spec[i,SP_index[i,3]], raw_spec[i,SP_index[i,4]],
+                    raw_spec[i,SP_index[i,5]]) # grabs intensity values around the peak
+
+    SP_wn[i,] <- c(wn_all[i,SP_index[i,1]], wn_all[i,SP_index[i,2]],
+                   wn_all[i,SP_index[i,3]], wn_all[i,SP_index[i,4]],
+                   wn_all[i,SP_index[i,5]]) # same again for the x axis
+
+    SP_fit[[i]] <- polyfit(SP_wn[i,], SP_int[i,], 2) # fits 2nd order poly to phen peak,
+    # 4th order poly causes error with qr.solve -- same problem with claudia, so using 2nd order
+
+    x_ref <- seq(from = SP_wn[i,1], to = SP_wn[i,5], by = 0.1)
+
+    SP_fit_val[[i]] <- polyval(SP_fit[[i]], x_ref)
+
+    max_new_i <- which.max(SP_fit_val[[i]])
+
+    band_pos <- SP_wn[i,1] + 0.1*(max_new_i-1)
+
+    shift <- ref_peak - band_pos
+
+    x_shift <- wn_all[i,] -shift
+
+    Shifted_int[i, ] <- pchip(wn_all[i,], raw_spec[i,], x_shift)
+    Shifted_wn[i, ] <- x_shift
+
+    interpolated <- matrix(nrow = nrow(raw_spec), ncol = nrow(wavenumber))
+
+  }
+  for (i in 1:nrow(raw_spec)){
+    interpolated[i,] <- interp1(Shifted_wn[i,], Shifted_int[i,], wavenumber[,1], "linear")
+
+  }
+
+  return(list(interpolated, Labels))
+}
