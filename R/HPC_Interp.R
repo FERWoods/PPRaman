@@ -13,20 +13,26 @@ read_in_HPC_Shift <- function(file_dir){
 
   # Extracting date and ID from file name
   files_base <- basename(files)
-  date <- substr(files_base, 1, 6)
-  ID <- substr(files_base, 11, 13)
-  supp_info <- cbind(date, ID)
+  flag <- ifelse(substr(files_base, 1, 2) == "Co", 0, 1)
 
-  # Counts number of repeats for each patient
-  rep_count <- as.data.frame(table(supp_info[,2]))
+  inx <- regexpr("ID=", files_base) # searching for pattern "ID="
+  ID <- substr(files_base, inx +(3), inx +(3+4) ) # 3 to take into account the "ID=", +5 for ID
+
+  # Counts number of repeats for each patient -- this bit of code seems unnecessary but due to
+  # functionality of table() (sorts the list) need to do it to maintain order
+  unique_r <- unique(ID)
+  table_r = rbind(label=unique_r, count=sapply(unique_r,function(x)sum(ID==x)))
+  counts <- as.data.frame.matrix(table_r)
 
   # Creates a sequence of 1 - nrepeats for labelling
   repeats <- list()
-  for (i in 1:nrow(rep_count)){
-    repeats[[i]] <- seq(from = 1, to = rep_count[i,2])
+  for (i in 1:ncol(counts)){
+    repeats[[i]] <- seq(from = 1, to = as.numeric(as.character(counts[2,i])))
   }
 
-  Labels <- cbind(supp_info, "rep" = unlist(repeats))
+  Labels <- cbind(ID, "rep" = unlist(repeats))
+  Labels <- cbind(Labels, flag)
+
 
   # Means that we have labels eg patient 066.1 066.2 etc
   pat_rep <- paste(Labels[,2], Labels[,3], sep = ".")
