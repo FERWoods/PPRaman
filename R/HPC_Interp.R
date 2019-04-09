@@ -4,7 +4,6 @@
 #' @return Interpolated and Shifted Spectra to 1004
 #' @export
 
-
 read_in_HPC_Shift <- function(file_dir){
   #user chooses
   files <- list.files(file_dir, full.names = TRUE)
@@ -46,7 +45,7 @@ read_in_HPC_Shift <- function(file_dir){
   #Step sizes for interpolating
   wavenumber <- as.data.frame(seq(611.6, 1717, by = 1.09))
 
-  signal_max <- matrix(nrow = 6, ncol = 3)
+  signal_max <- matrix(nrow = raw_spec, ncol = 3)
   for (i in 1:nrow(raw_spec)){
     max_i <- which.max(raw_spec[i,300:380]) # taking 1015-300 and 1015-380 due to flipping
     shift_i <- max_i + 299
