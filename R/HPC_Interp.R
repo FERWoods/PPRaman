@@ -7,7 +7,7 @@
 
 read_in_HPC_Shift <- function(file_dir){
   #user chooses
-  files <- list.files(file_dir)
+  files <- list.files(file_dir, full.names = TRUE)
 
   # This reads all the files in using read.table
   inputfiles <- lapply(files, read.table)
