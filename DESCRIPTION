@@ -1,9 +1,9 @@
 Package: PPRaman
 Type: Package
 Title: Preprocessing package for Raman spectra
-Version: 0.1-20181120
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
+Version: 0.2-20190812
+Author: Swansea Biospectroscopy
+Maintainer: The package maintainer <f.woods.795986@swansea.ac.uk>
 Description: Provides preprocessing for Raman Spectra. Originally
   based on Matlab code and converted November 2018.
 License: GPL (>=3)
@@ -14,5 +14,8 @@ Imports:
   ggplot2, 
   reshape2, 
   hyperSpec, 
-  EMSC
+  EMSC,
+  randomForest,
+  ROCR,
+  signal
 RoxygenNote: 6.1.1

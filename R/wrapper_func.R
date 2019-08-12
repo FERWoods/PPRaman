@@ -9,7 +9,7 @@
 #' @return Preprocessed spectra
 #' @export
 
-  opt_process_hpc_dev <- function(spectra, norm_meth, rm_bl, baseline_fit, RCF_rad, poly_order,
+opt_process_hpc_dev <- function(spectra, norm_meth, rm_bl, baseline_fit, RCF_rad, poly_order,
                                   filter_length, deriv_order){
 
   # Baseline removal selection

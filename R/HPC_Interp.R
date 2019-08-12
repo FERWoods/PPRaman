@@ -13,7 +13,10 @@ read_in_HPC_Shift <- function(file_dir){
 
   # Extracting date and ID from file name
   files_base <- basename(files)
-  flag <- ifelse(substr(files_base, 1, 2) == "Co", 0, 1)
+  flag <- ifelse(tolower(substr(files_base, 1, 2)) == "co", 0,
+                 ifelse(tolower(substr(files_base, 1, 3)) == "cap", 3,
+                    ifelse(tolower(substr(files_base, 1, 2)) == "ca", 1,
+                        ifelse(tolower(substr(files_base, 1, 2)) == "po", 2, "NA"))))
 
   inx <- regexpr("ID=", files_base) # searching for pattern "ID="
   ID <- substr(files_base, inx +(3), inx +(3+4) ) # 3 to take into account the "ID=", +5 for ID
