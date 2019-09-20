@@ -17,7 +17,7 @@ opt_process_hpc_smooth <- function(spectra, norm_meth, rm_bl, RCF_rad, poly_bl_o
                                 filter_length, deriv_order, poly_smooth_order, smoothing_opt){
   if(smoothing_opt == 1){
     smooth_spectra <- apply(spectra, 1, savgol, fl = as.numeric(filter_length),
-                            forder = as.numeric(poly_smooth_order))
+                            forder = as.numeric(poly_smooth_order), dorder = as.numeric(deriv_order))
     # Step required since we lose some wavenumbers due to filter length
     smooth_spectra <- t(smooth_spectra)
     smooth_spectra <- smooth_spectra[,-(1:((filter_length + 1)/2))]
@@ -31,7 +31,7 @@ opt_process_hpc_smooth <- function(spectra, norm_meth, rm_bl, RCF_rad, poly_bl_o
   if(rm_bl == "rcf"){
     bl_rmv <- apply(spectra, 1, RCF_GENERALISED, radius = as.numeric(RCF_rad), wavenumber = wavenumber)
   } else if(rm_bl == "der"){
-    bl_rmv <- apply(spectra, 1, savgol, dorder = as.numeric(deriv_order))
+    bl_rmv <- spectra
   } else if(rm_bl == "rub"){
     temp <- spc.rubberband(spectra)
     bl_rmv <- spectra - temp

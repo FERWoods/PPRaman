@@ -54,14 +54,13 @@ RCF_GENERALISED <- function(raw_spectra, radius, wavenumber){
   loopsize <- seq(from = 1, to = (ncol(testdataset) - length(x)), by = 1)
   b <- length(x)
   indices <- loopsize-1+b
-
+  seq2 <- Vectorize(seq.default, vectorize.args = c("from", "to"))
   idx <- seq2(from = loopsize,
        to = indices, by = 1)
   goal <- list()
   for (i in 1:ncol(idx)){
     goal[[i]] <- testdataset[, idx[,i]]
   }
-  Sys.time() - t1
 
   dist <- matrix(ncol = length(goal), nrow = b)
   for (i in 1:length(goal)){
