@@ -1,0 +1,59 @@
+EMSC.PPRAMAN            EMSC wrapper - NOT TESTED USE WITH CAUTION
+PCA                     Principle Component Analysis
+RCF                     Rolling Circle Filter
+RCF_GENERALISED         Rolling Circle Filter- Dev - use with apply
+RCF_dev                 Rolling Circle Filter- Dev - use with apply
+SavGol                  Savitsky Golay filter
+calculate.accuracy      Accuracy calculation for a 2 class model
+calculate.w.accuracy    Accuracy calculation for a > 2 class model
+conf_ellipse_outliers   Confidence ellipse and outliers from PC1/PC2
+feature_selection       Feature Selection for RF
+flip_data               Flip data
+format_spectra          EMSC Spectral Formatting
+hpc_read_in_interp      HPC READ IN AND INTERPOLATE SPECTRA
+interpolate_spectra     Interpolate Spectra
+is.nan.data.frame       Replace NaN with 0 Function for replacing NaN's
+                        with zeros in the entire df
+norm_a                  Normalise at the largest amide peak
+norm_minmax             Normalise using min max
+norm_p                  Normalise at Phenylalanine peak
+norm_rnv                Normalising Spectra using RNV
+norm_snv                Normalising Spectra using SNV
+norm_vec                Normalising Spectra using Vector Normalising
+opt_process_hpc         Options for pre-processing spectra
+opt_process_hpc_dev     Options for pre-processing spectra - developing
+                        version
+opt_process_hpc_eff     Options V1 Norm & RF Radius efficiency testing
+                        First run of options for the HPC - testing
+                        phase
+opt_process_hpc_smooth
+                        Options for pre-processing spectra - developing
+                        version
+pc_plots                PC Plots
+poly_baseline_removal   Polynomial Baseline Removal
+ppv_npv                 NPV PPV Function
+process_all_spec        Processing spectra en masse
+random_forest_testing   Random Forest Testing
+random_forest_training
+                        Random Forest Training
+read_in                 Options V1 Norm & RF Radius First run of
+                        options for the HPC - testing phase
+read_in_HPC_Shift       HPC Shift Interp Function
+read_in_dev_axis        Read In, Shift, Interp - Shifs to 1001 Post
+                        Neon Calibration RC applied
+read_in_interp_labelfree
+                        Read In, Shift, Interp label free
+read_in_noshift         Read In, interp no shifting
+read_in_post_neon_cal   Read In, Shift, Interp - Shifs to 1001 Post
+                        Neon Calibration
+read_in_shift_interp    Reading In, Shifting and Interpolating
+read_in_shift_interp_manyspec
+                        Reading In, Shifting and Interpolating for many
+                        spectra (e.g >100)
+reps                    Labels for repeats
+sen_spec                Sensitivity Specificity Function
+spectral_plots          Spectral Plotting
+std                     Standard Error
+user_inputs             User Inputs
+wavelet_denoise         Wavelet Denoise Smoothing using the wavelet
+                        denoise method

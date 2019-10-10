@@ -9,13 +9,7 @@ Description: Provides preprocessing for Raman Spectra. Originally
 License: GPL (>=3)
 Encoding: UTF-8
 LazyData: true
-Imports: 
-  pracma, 
-  ggplot2, 
-  reshape2, 
-  hyperSpec, 
-  EMSC,
-  randomForest,
-  ROCR,
-  signal
+Imports: pracma, ggplot2, reshape2, hyperSpec, EMSC, randomForest,
+        ROCR, signal
 RoxygenNote: 6.1.1
+Built: R 3.5.1; ; 2019-10-10 09:55:39 UTC; windows
