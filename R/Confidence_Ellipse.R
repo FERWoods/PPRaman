@@ -11,10 +11,10 @@
 #' @import pracma
 conf_ellipse_outliers <- function(spectra, confidence){
   # Compute PCA on spectra
-  spec_pca <- prcomp(spectra, center = TRUE, scale = TRUE)
+  spec_pca <- prcomp(spectra, center = TRUE, scale = FALSE)
 
   # Pick off only PC1 and PC2
-  mat <- as.matrix(spec_pca)
+  mat <- as.matrix(spec_pca$x[,1:2])
 
   # Mean matrix
   mean_mat <- apply(mat, 2, mean)

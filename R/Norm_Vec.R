@@ -8,10 +8,11 @@
 
 norm_vec<- function(spectra){
 
-  norm_spec <- matrix(nrow = nrow(spectra), ncol = ncol(spectra))
+  norm_spec <- spectra
   for (i in 1:nrow(spectra)){
     norm_spec[i,] <- spectra[i,]/ norm(spectra[i,], type = "2")
   }
 
   return(as.data.frame(norm_spec))
 }
+

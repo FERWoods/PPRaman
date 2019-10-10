@@ -5,7 +5,8 @@
 \title{Options for pre-processing spectra - developing version}
 \usage{
 opt_process_hpc_smooth(spectra, norm_meth, rm_bl, RCF_rad, poly_bl_order,
-  filter_length, deriv_order, poly_smooth_order, smoothing_opt)
+  filter_length, deriv_order = 0, poly_smooth_order, smoothing_opt = 0,
+  binning_opt = 0, bin_size)
 }
 \arguments{
 \item{spectra}{Spectra data that has been interpolated already}
@@ -25,6 +26,10 @@ opt_process_hpc_smooth(spectra, norm_meth, rm_bl, RCF_rad, poly_bl_order,
 \item{poly_smooth_order}{polynomial order for smoothing}
 
 \item{smoothing_opt}{Binary 1 or 0 if you want smoothing or not! This also automatically removes the dud wavenumbers from the fl + 1/2 at either end}
+
+\item{binning_opt}{Binary 1 or 0 for binning option}
+
+\item{bin_size}{A numeric value for the desired # of wavenumbers in each bin}
 }
 \value{
 Preprocessed spectra

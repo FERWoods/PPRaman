@@ -9,12 +9,21 @@
 #' @param filter_length filter length (window) for savitsky golay smoothing
 #' @param poly_smooth_order polynomial order for smoothing
 #' @param smoothing_opt Binary 1 or 0 if you want smoothing or not! This also automatically removes the dud wavenumbers from the fl + 1/2 at either end
+#' @param binning_opt Binary 1 or 0 for binning option
+#' @param bin_size A numeric value for the desired # of wavenumbers in each bin
 #' @return Preprocessed spectra
 #' @export
 
-
 opt_process_hpc_smooth <- function(spectra, norm_meth, rm_bl, RCF_rad, poly_bl_order,
-                                filter_length, deriv_order, poly_smooth_order, smoothing_opt){
+                                filter_length, deriv_order = 0, poly_smooth_order, smoothing_opt = 0,
+                                binning_opt = 0, bin_size){
+
+  if(binning_opt == 1){
+    spectra_binned <- apply(spectra[, 1:1015], 1, binning, bin.size = bin_size)
+    wavenumber <- as.data.frame(binning(wavenumber[,1], bin.size = bin_size))
+    spectra <- t(spectra_binned)
+  }
+
   if(smoothing_opt == 1){
     smooth_spectra <- apply(spectra, 1, savgol, fl = as.numeric(filter_length),
                             forder = as.numeric(poly_smooth_order), dorder = as.numeric(deriv_order))
