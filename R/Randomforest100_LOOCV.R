@@ -22,18 +22,18 @@ random_forest_ave <- function(training_setin, testing_setin, training_set_ids, t
   # preamble
   training_setin <- cbind(training_setin, training_set_ids)
   training_setin$V1016 <- factor(training_setin$V1016)
-  colnames(training_setin)[1017] <- "ID"
+  colnames(training_setin)[ncol(training_setin)] <- "ID"
   testing_setin <- cbind(testing_setin, test_set_ids)
   testing_setin$V1016 <- factor(testing_setin$V1016)
-  colnames(testing_setin)[1017] <- "ID"
+  colnames(testing_setin)[ncol(testing_setin)] <- "ID"
   ############################################### LOOCV #############################################
 
 
   ID <- unique(training_setin$ID)
   loo_ca <- list()
   for(i in ID){
-    rf <- randomForest(V1016~., data=training_setin[training_setin$ID!=i,1:1016])
-    loo_ca[[i]] <- predict(rf, newdata=training_setin[training_setin$ID==i,1:1016],
+    rf <- randomForest(V1016~., data=training_setin[training_setin$ID!=i,1:(ncol(training_setin)-1)])
+    loo_ca[[i]] <- predict(rf, newdata=training_setin[training_setin$ID==i,1:(ncol(training_setin)-1)],
                         type = "prob")[,2]
   }
   res <- data.frame("ID" = training_set_ids, "Raman_Ca_Prob" = unlist(loo_ca),
@@ -57,11 +57,11 @@ random_forest_ave <- function(training_setin, testing_setin, training_set_ids, t
   loocv_acc_pat <- calculate.accuracy(loocv_res$Raman_Diagnosis, loocv_res$Clinical_Diagnosis)
 
   # Training_set variance
-  mean_mat <- matrix(nrow=length(ID), ncol = 1015)
-  sd_mat <- matrix(nrow=length(ID), ncol = 1015)
+  mean_mat <- matrix(nrow=length(ID), ncol = (ncol(training_setin)-2))
+  sd_mat <- matrix(nrow=length(ID), ncol = (ncol(training_setin)-2))
   for (i in 1:length(ID)){
-    mean_mat[i,] <- apply(training_setin[training_setin$ID == ID[i],1:1015], 2, mean)
-    sd_mat[i,] <- apply(training_setin[training_setin$ID == ID[i],1:1015], 2, sd)
+    mean_mat[i,] <- apply(training_setin[training_setin$ID == ID[i],1:(ncol(training_setin)-2)], 2, mean) # minus 2 to rmv id and binary
+    sd_mat[i,] <- apply(training_setin[training_setin$ID == ID[i],1:(ncol(training_setin)-2)], 2, sd)
   }
 
   train_spec_sd <- rowMeans(sd_mat) # SCOPE TO GO BACK AND RETEST THESE TO PULL ALL THE WN FOR TOP 10 SAY
@@ -79,8 +79,8 @@ random_forest_ave <- function(training_setin, testing_setin, training_set_ids, t
   ca_all <- list()
   for (i in 1:100){
     rf_all[[i]] <- randomForest(V1016 ~.,
-                                data = training_setin[,1:1016], importance = TRUE)
-    ca_all[[i]] <- predict(rf_all[[i]], testing_setin[,1:1015], type = "prob")[,2]
+                                data = training_setin[,1:(ncol(training_setin)-1)], importance = TRUE)
+    ca_all[[i]] <- predict(rf_all[[i]], testing_setin[,1:(ncol(testing_setin)-2)], type = "prob")[,2]
   }
 
   # Testing set reults
@@ -123,12 +123,12 @@ random_forest_ave <- function(training_setin, testing_setin, training_set_ids, t
   test_acc_pat <- calculate.accuracy(test_res$Raman_Diagnosis, test_res$Clinical_Diagnosis)
 
   # Training_set variance
-  test_ID <- unique(testing_set_ids)
-  test_mean_mat <- matrix(nrow=length(test_ID), ncol = 1015)
-  test_sd_mat <- matrix(nrow=length(test_ID), ncol = 1015)
+  test_ID <- unique(test_set_ids)
+  test_mean_mat <- matrix(nrow=length(test_ID), ncol = (ncol(testing_setin)-2))
+  test_sd_mat <- matrix(nrow=length(test_ID), ncol = (ncol(testing_setin)-2))
   for (i in 1:length(test_ID)){
-    test_mean_mat[i,] <- apply(testing_setin[testing_setin$ID == test_ID[i],1:1015], 2, mean)
-    test_sd_mat[i,] <- apply(testing_setin[testing_setin$ID == test_ID[i],1:1015], 2, sd)
+    test_mean_mat[i,] <- apply(testing_setin[testing_setin$ID == test_ID[i],1:(ncol(testing_setin)-2)], 2, mean)
+    test_sd_mat[i,] <- apply(testing_setin[testing_setin$ID == test_ID[i],1:(ncol(testing_setin)-2)], 2, sd)
   }
 
   test_spec_sd <- rowMeans(test_sd_mat)
