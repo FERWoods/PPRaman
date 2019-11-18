@@ -9,6 +9,7 @@
 #' @export
 #' @import randomForest
 #' @import ROCR
+#' @import purrr
 #'
 
 #training_setin <- rbind(processed_train_spec, processed_test_spec)
@@ -77,11 +78,20 @@ random_forest_ave <- function(training_setin, testing_setin, training_set_ids, t
 
   rf_all <- list()
   ca_all <- list()
+  rf_imp_tmp <- list()
+  rf_imp <- list()
   for (i in 1:100){
     rf_all[[i]] <- randomForest(V1016 ~.,
                                 data = training_setin[,1:(ncol(training_setin)-1)], importance = TRUE)
     ca_all[[i]] <- predict(rf_all[[i]], testing_setin[,1:(ncol(testing_setin)-2)], type = "prob")[,2]
+    # Find top 600 features
+    rf_imp_tmp[[i]] <- as.data.frame(importance(rf_all[[i]], type=2)) # type 2 = MeanGiniDecrease
+    rf_imp[[i]] <- cbind(Feature = rownames(rf_imp_tmp[[i]]), rf_imp_tmp[[i]])
+
   }
+  imp_all <- lapply(rf_imp, setNames, c("Feature", "MeanDecreaseGini"))
+  imp_all_comb <- reduce(imp_all, full_join, by = "Feature")
+  imp_res <- cbind(as.character(imp_all_comb[,1]),rowMeans(imp_all_comb[,2:101]), apply(imp_all_comb[,2:101], 1, sd))
 
   # Testing set reults
   ca_ave_test <- list()
@@ -136,9 +146,9 @@ random_forest_ave <- function(training_setin, testing_setin, training_set_ids, t
 
   test_out <- cbind(test_senspec_spec[[1]], test_senspec_spec[[2]], test_ppvnpv_spec[[1]], test_ppvnpv_spec[[2]],
                     test_acc_spec[1], test_senspec_pat[[1]], test_senspec_pat[[2]], test_ppvnpv_pat[[1]],
-                    test_ppvnpv_pat[[2]], test_acc_pat[1], mean(test_spec_sd), mean(test_res$SD))
+                    test_ppvnpv_pat[[2]], test_acc_pat[1], mean(test_spec_sd), mean(test_res$SD), auc_ave_test, auc_ave_test)
 
   ############################################### Testing Set End ##############################################
 
-  return(list(loocv_out, res, loocv_res, test_out, res_test, test_res))
+  return(list(loocv_out, res, loocv_res, test_out, res_test, test_res, imp_res))
 }

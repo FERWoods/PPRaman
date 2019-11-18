@@ -16,7 +16,7 @@
 
 opt_process_hpc_smooth <- function(spectra, norm_meth, rm_bl, RCF_rad, poly_bl_order,
                                 filter_length, deriv_order = 0, poly_smooth_order, smoothing_opt = 0,
-                                binning_opt = 0, bin_size){
+                                binning_opt = 0, bin_size = 1){
 
   if(binning_opt == 1){
     spectra_binned <- apply(spectra[, 1:1015], 1, binning, bin.size = bin_size)
@@ -40,7 +40,7 @@ opt_process_hpc_smooth <- function(spectra, norm_meth, rm_bl, RCF_rad, poly_bl_o
   if(rm_bl == "rcf"){
     bl_rmv <- apply(spectra, 1, RCF_GENERALISED, radius = as.numeric(RCF_rad), wavenumber = wavenumber)
   } else if(rm_bl == "der"){
-    bl_rmv <- spectra
+    bl_rmv <- spectra # would have already applied the derivative bl removal in the smoothing step
   } else if(rm_bl == "rub"){
     temp <- spc.rubberband(spectra)
     bl_rmv <- spectra - temp
@@ -55,7 +55,7 @@ opt_process_hpc_smooth <- function(spectra, norm_meth, rm_bl, RCF_rad, poly_bl_o
 
   # Normalise selection
   if(norm_meth == "norm_p"){
-    norm_spec <- norm_p(t(bl_rmv))
+    norm_spec <- norm_p(t(bl_rmv), bin_size = bin_size)
   } else if(norm_meth == "norm_minmax"){
     norm_spec <- norm_minmax(t(bl_rmv))
   } else if(norm_meth == "norm_snv"){
@@ -63,7 +63,7 @@ opt_process_hpc_smooth <- function(spectra, norm_meth, rm_bl, RCF_rad, poly_bl_o
   } else if(norm_meth == "norm_vec"){
     norm_spec <- norm_vec(t(bl_rmv))
   } else if(norm_meth == "norm_a"){
-    norm_spec <- norm_a(t(bl_rmv))
+    norm_spec <- norm_a(t(bl_rmv), bin_size = bin_size)
   } else if(norm_meth == "none"){
     norm_spec <- t(bl_rmv)
   }

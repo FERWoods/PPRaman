@@ -6,7 +6,7 @@
 \usage{
 opt_process_hpc_smooth(spectra, norm_meth, rm_bl, RCF_rad, poly_bl_order,
   filter_length, deriv_order = 0, poly_smooth_order, smoothing_opt = 0,
-  binning_opt = 0, bin_size)
+  binning_opt = 0, bin_size = 1)
 }
 \arguments{
 \item{spectra}{Spectra data that has been interpolated already}

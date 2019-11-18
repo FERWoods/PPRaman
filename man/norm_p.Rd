@@ -4,10 +4,12 @@
 \alias{norm_p}
 \title{Normalise at Phenylalanine peak}
 \usage{
-norm_p(spectra)
+norm_p(spectra, bin_size = 1)
 }
 \arguments{
 \item{spectra}{Spectra in matrix format for normalising}
+
+\item{bin_size}{Number of wavenumbers in a bin to shift region to normalise to accordingly}
 }
 \value{
 Normalised spectra
