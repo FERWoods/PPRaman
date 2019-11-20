@@ -40,7 +40,7 @@ opt_process_hpc_smooth <- function(spectra, norm_meth, rm_bl, RCF_rad, poly_bl_o
   if(rm_bl == "rcf"){
     bl_rmv <- apply(spectra, 1, RCF_GENERALISED, radius = as.numeric(RCF_rad), wavenumber = wavenumber)
   } else if(rm_bl == "der"){
-    bl_rmv <- spectra # would have already applied the derivative bl removal in the smoothing step
+    bl_rmv <- t(spectra) # would have already applied the derivative bl removal in the smoothing step
   } else if(rm_bl == "rub"){
     temp <- spc.rubberband(spectra)
     bl_rmv <- spectra - temp

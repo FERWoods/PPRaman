@@ -4,10 +4,12 @@
 \alias{norm_a}
 \title{Normalise at the largest amide peak}
 \usage{
-norm_a(spectra)
+norm_a(spectra, bin_size = 1)
 }
 \arguments{
 \item{spectra}{Spectra in matrix format for normalising}
+
+\item{bin_size}{Number of wavenumbers in a bin to shift region to normalise to accordingly}
 }
 \value{
 Normalised spectra
