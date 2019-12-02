@@ -6,7 +6,7 @@
 \usage{
 opt_process_hpc_smooth(spectra, norm_meth, rm_bl, RCF_rad, poly_bl_order,
   filter_length, deriv_order = 0, poly_smooth_order, smoothing_opt = 0,
-  binning_opt = 0, bin_size = 1)
+  binning_opt = 0, bin_size = 1, pp_order = "1234")
 }
 \arguments{
 \item{spectra}{Spectra data that has been interpolated already}
@@ -30,6 +30,8 @@ opt_process_hpc_smooth(spectra, norm_meth, rm_bl, RCF_rad, poly_bl_order,
 \item{binning_opt}{Binary 1 or 0 for binning option}
 
 \item{bin_size}{A numeric value for the desired # of wavenumbers in each bin}
+
+\item{pp_order}{1 = Binning (1 must always come first), 2 = smoothing parameters, 3 = baseline correction, 4 = normalisation}
 }
 \value{
 Preprocessed spectra

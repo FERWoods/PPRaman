@@ -146,7 +146,7 @@ random_forest_ave <- function(training_setin, testing_setin, training_set_ids, t
 
   test_out <- cbind(test_senspec_spec[[1]], test_senspec_spec[[2]], test_ppvnpv_spec[[1]], test_ppvnpv_spec[[2]],
                     test_acc_spec[1], test_senspec_pat[[1]], test_senspec_pat[[2]], test_ppvnpv_pat[[1]],
-                    test_ppvnpv_pat[[2]], test_acc_pat[1], mean(test_spec_sd), mean(test_res$SD), auc_ave_test, auc_ave_test)
+                    test_ppvnpv_pat[[2]], test_acc_pat[1], mean(test_spec_sd), mean(test_res$SD), auc_ave_test, auc_se_test)
 
   ############################################### Testing Set End ##############################################
 
