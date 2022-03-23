@@ -1,0 +1,19 @@
+RCF_GENERALISED         Rolling Circle Filter (RCF)
+flip_data               Flip data
+is.nan.data.frame       Replace NaN with 0 Function for replacing NaN's
+                        with zeros in the entire df
+modpolyfit              Modified polynomial baseline removal
+norm_a                  Normalisation to the Amide I peak
+norm_minmax             Normalisation using min max
+norm_p                  Normalisation to the Phenylalanine peak
+norm_snv                Normalising Spectra using SNV
+norm_vec                Normalising Spectra using Vector Normalising
+poly_baseline_removal   Polynomial Baseline Removal # NOT USED IN
+                        WRAPPER
+process_spectra         Pre-processing spectra with options
+rcf                     Rolling Circle Filter (RCF) Updated 12/08/2020
+read_in_shift           Shift Interp Function
+read_in_shift_general   Read in spectra, shift and interpolate
+sav_gol                 Savitsky-Golay filtering SG filtering, adapted
+                        from pracma package
+std                     Standard Error

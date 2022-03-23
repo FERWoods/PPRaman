@@ -1,0 +1,16 @@
+flip_data	flip_data
+is.nan.data.frame	is.nan.data.frame
+modpolyfit	modpolyfit
+norm_a	norm_a
+norm_minmax	norm_minmax
+norm_p	norm_p
+norm_snv	norm_snv
+norm_vec	norm_vec
+poly_baseline_removal	poly_baseline_removal
+process_spectra	process_spectra
+rcf	rcf
+RCF_GENERALISED	RCF_GENERALISED
+read_in_shift	read_in_shift
+read_in_shift_general	read_in_shift_general
+sav_gol	sav_gol
+std	std

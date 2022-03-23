@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Read in spectra, shift and interpolate</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for read_in_shift_general {PPRaman}"><tr><td>read_in_shift_general {PPRaman}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Read in spectra, shift and interpolate</h2>
+
+<h3>Description</h3>
+
+<p>Reads in spectra with x in first column, y in second, shifts to common reference peak and interpolate onto common wavenumber axis.
+Recommended use with list of spectra read in from .txt files using lapply.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+read_in_shift_general(
+  spectra,
+  abscissa,
+  reference_peak = 1004,
+  reference_index = c(300:380)
+)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>spectra</code></td>
+<td>
+<p>Spectra with first column = original x axis, y = intensity.</p>
+</td></tr>
+<tr valign="top"><td><code>abscissa</code></td>
+<td>
+<p>x-axis to interpolate onto.</p>
+</td></tr>
+<tr valign="top"><td><code>reference_peak</code></td>
+<td>
+<p>Peak to shift spectra to, default = 1004 for phenylalanine in blood serum.</p>
+</td></tr>
+<tr valign="top"><td><code>reference_index</code></td>
+<td>
+<p>Index range for finding maximum intensity around reference peak, default = 300:380 for phenylalanine</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Shifted and Interpolated Spectra
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>PPRaman</em> version 2.0.0 <a href="00Index.html">Index</a>]</div>
+</body></html>
